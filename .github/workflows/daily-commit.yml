@@ -1,0 +1,33 @@
+name: Daily commit
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  daily-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Update daily file
+        run: |
+          echo "Daily update: $(date -u +"%Y-%m-%d %H:%M:%S UTC")" > daily.txt
+          echo "Triggered by: $GITHUB_ACTOR on $GITHUB_REF" >> daily.txt
+          git add daily.txt
+
+      - name: Commit and push
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: "chore: daily update — ${{ github.run_id }}"
+          add: "daily.txt"
+          author_name: "github-actions[bot]"
+          author_email: "41898282+github-actions[bot]@users.noreply.github.com"
+          push: true
