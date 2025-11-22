@@ -29,6 +29,6 @@ jobs:
         with:
           message: "chore: daily update — ${{ github.run_id }}"
           add: "daily.txt"
-          author_name: "github-actions[bot]"
-          author_email: "41898282+github-actions[bot]@users.noreply.github.com"
+          author_name: "Dev-AkashK"
+          author_email: "245339001+Dev-AkashK@users.noreply.github.com"
           push: true
